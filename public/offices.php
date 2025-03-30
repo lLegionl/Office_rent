@@ -1,5 +1,6 @@
 <?php 
 session_start();
+include "db.php";
 include "header.php";
 ?>
 <!DOCTYPE html>
@@ -167,7 +168,7 @@ include "header.php";
         
         .office-actions {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
         }
         
@@ -212,6 +213,7 @@ include "header.php";
             }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>    
     <section class="page-header">
@@ -228,223 +230,43 @@ include "header.php";
             <h2 class="section-title">Доступные офисы</h2>
             
             <div class="offices-grid">
-                <!-- Офис 1 -->
-                <div class="office-card">
-                    <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Офис в БЦ Легенда" class="office-img">
-                    <div class="office-info">
-                        <h3>БЦ "Легенда"</h3>
-                        <div class="office-location">
-                            <i class="fas fa-map-marker-alt"></i> Центр города, ул. Центральная, 15
-                        </div>
-                        <div class="office-features">
-                            <div class="feature-item">
-                                <span class="feature-name">Площадь:</span>
-                                <span class="feature-value">120 м²</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-name">Вместимость:</span>
-                                <span class="feature-value">до 15 человек</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-name">Этаж:</span>
-                                <span class="feature-value">7</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-name">Ремонт:</span>
-                                <span class="feature-value">евро</span>
-                            </div>
-                        </div>
-                        <div class="office-price">85 000 ₽/мес</div>
-                        <div class="office-actions">
-                            <button class="favorite-btn" title="Добавить в избранное">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <a href="#" class="btn btn-secondary">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
+                <?php 
+                $stm=$pdo->query('SELECT * FROM `offices`');
+                $offices=$stm->fetchAll();?>
+                <?php foreach ($offices as $office){?>
                 
-                <!-- Офис 2 -->
                 <div class="office-card">
-                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Офис в БЦ Высота" class="office-img">
+                    <img src=".\images\office\<?=$office['image_path']?>" alt="Офис в <?=$office['business_center']?>" class="office-img">
                     <div class="office-info">
-                        <h3>БЦ "Высота"</h3>
+                        <h3><?=$office['business_center']?></h3>
                         <div class="office-location">
-                            <i class="fas fa-map-marker-alt"></i> Деловой район, пр. Бизнесовый, 42
+                            <i class="fas fa-map-marker-alt"></i><?=$office['office_area'].' '.$office['office_addres']?>
                         </div>
                         <div class="office-features">
                             <div class="feature-item">
                                 <span class="feature-name">Площадь:</span>
-                                <span class="feature-value">65 м²</span>
+                                <span class="feature-value"><?$office['office_square']?> м²</span>
                             </div>
                             <div class="feature-item">
                                 <span class="feature-name">Вместимость:</span>
-                                <span class="feature-value">до 8 человек</span>
+                                <span class="feature-value">до <?$office['office_capacity']?> человек</span>
                             </div>
                             <div class="feature-item">
                                 <span class="feature-name">Этаж:</span>
-                                <span class="feature-value">3</span>
+                                <span class="feature-value"><?=$office['office_floor']?></span>
                             </div>
                             <div class="feature-item">
                                 <span class="feature-name">Ремонт:</span>
-                                <span class="feature-value">стандарт</span>
+                                <span class="feature-value"><?=$office['office_repair']?></span>
                             </div>
                         </div>
-                        <div class="office-price">45 000 ₽/мес</div>
+                        <div class="office-price"><?=$office['office_rent']?> ₽/мес</div>
                         <div class="office-actions">
-                            <button class="favorite-btn" title="Добавить в избранное">
-                                <i class="far fa-heart"></i>
-                            </button>
                             <a href="#" class="btn btn-secondary">Подробнее</a>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Офис 3 -->
-                <div class="office-card">
-                    <img src="https://images.unsplash.com/photo-1560448204-603b3fc33ddc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Офис в БЦ Галактика" class="office-img">
-                    <div class="office-info">
-                        <h3>БЦ "Галактика"</h3>
-                        <div class="office-location">
-                            <i class="fas fa-map-marker-alt"></i> Северный район, ул. Звездная, 7
-                        </div>
-                        <div class="office-features">
-                            <div class="feature-item">
-                                <span class="feature-name">Площадь:</span>
-                                <span class="feature-value">250 м²</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-name">Вместимость:</span>
-                                <span class="feature-value">до 30 человек</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-name">Этаж:</span>
-                                <span class="feature-value">5</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-name">Ремонт:</span>
-                                <span class="feature-value">бизнес-класс</span>
-                            </div>
-                        </div>
-                        <div class="office-price">150 000 ₽/мес</div>
-                        <div class="office-actions">
-                            <button class="favorite-btn" title="Добавить в избранное">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <a href="#" class="btn btn-secondary">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Офис 4 -->
-                <div class="office-card">
-                    <img src="https://images.unsplash.com/photo-1517502884422-41eaead166d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Офис в БЦ Плаза" class="office-img">
-                    <div class="office-info">
-                        <h3>БЦ "Плаза"</h3>
-                        <div class="office-location">
-                            <i class="fas fa-map-marker-alt"></i> Центр города, ул. Главная, 10
-                        </div>
-                        <div class="office-features">
-                            <div class="feature-item">
-                                <span class="feature-name">Площадь:</span>
-                                <span class="feature-value">90 м²</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-name">Вместимость:</span>
-                                <span class="feature-value">до 12 человек</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-name">Этаж:</span>
-                                <span class="feature-value">2</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-name">Ремонт:</span>
-                                <span class="feature-value">евро</span>
-                            </div>
-                        </div>
-                        <div class="office-price">75 000 ₽/мес</div>
-                        <div class="office-actions">
-                            <button class="favorite-btn" title="Добавить в избранное">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <a href="#" class="btn btn-secondary">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Офис 5 -->
-                <div class="office-card">
-                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Офис в БЦ Триумф" class="office-img">
-                    <div class="office-info">
-                        <h3>БЦ "Триумф"</h3>
-                        <div class="office-location">
-                            <i class="fas fa-map-marker-alt"></i> Деловой район, пр. Победителей, 25
-                        </div>
-                        <div class="office-features">
-                            <div class="feature-item">
-                                <span class="feature-name">Площадь:</span>
-                                <span class="feature-value">180 м²</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-name">Вместимость:</span>
-                                <span class="feature-value">до 22 человек</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-name">Этаж:</span>
-                                <span class="feature-value">4</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-name">Ремонт:</span>
-                                <span class="feature-value">бизнес-класс</span>
-                            </div>
-                        </div>
-                        <div class="office-price">120 000 ₽/мес</div>
-                        <div class="office-actions">
-                            <button class="favorite-btn" title="Добавить в избранное">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <a href="#" class="btn btn-secondary">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Офис 6 -->
-                <div class="office-card">
-                    <img src="https://images.unsplash.com/photo-1521747116042-5a810fda9664?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Офис в БЦ Сфера" class="office-img">
-                    <div class="office-info">
-                        <h3>БЦ "Сфера"</h3>
-                        <div class="office-location">
-                            <i class="fas fa-map-marker-alt"></i> Западный район, ул. Инновационная, 3
-                        </div>
-                        <div class="office-features">
-                            <div class="feature-item">
-                                <span class="feature-name">Площадь:</span>
-                                <span class="feature-value">300 м²</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-name">Вместимость:</span>
-                                <span class="feature-value">до 35 человек</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-name">Этаж:</span>
-                                <span class="feature-value">6</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-name">Ремонт:</span>
-                                <span class="feature-value">премиум</span>
-                            </div>
-                        </div>
-                        <div class="office-price">200 000 ₽/мес</div>
-                        <div class="office-actions">
-                            <button class="favorite-btn" title="Добавить в избранное">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <a href="#" class="btn btn-secondary">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
+                <?}?>            
         </div>
     </section>
     

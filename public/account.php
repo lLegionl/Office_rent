@@ -113,6 +113,7 @@ include "header.php";
             transition: all 0.3s;
 
             text-decoration: none;
+            box-sizing: border-box;
         }
         
         .logout-btn:hover {

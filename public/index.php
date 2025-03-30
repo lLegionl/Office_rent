@@ -1,5 +1,6 @@
 <?php 
 session_start();
+include "db.php";
 include "header.php";
 ?>
 <!DOCTYPE html>
@@ -269,13 +270,14 @@ include "header.php";
             }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <section class="hero">
         <div class="hero-content">
             <h1>Найдите идеальный офис для вашего бизнеса</h1>
             <p>Более 150 офисных помещений в лучших бизнес-центрах города. Гибкие условия аренды и полный сервис.</p>
-            <a href="#spaces" class="btn">Смотреть все помещения</a>
+            <a href="offices.php" class="btn">Смотреть все помещения</a>
         </div>
     </section>
     
@@ -317,63 +319,33 @@ include "header.php";
             </div>
         </div>
     </section>
-    
+
+     
+
     <section class="spaces" id="spaces">
         <div class="container">
             <h2 class="section-title">Популярные помещения</h2>
             <div class="spaces-grid">
+            <?php $stm=$pdo->query('SELECT * FROM `offices` ORDER BY RAND() LIMIT 3');
+            $offices=$stm->fetchAll();?>
+            <?php foreach ($offices as $office){?>
                 <div class="space-card">
-                    <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Офис в БЦ Легенда" class="space-img">
+                    <img src=".\images\office\<?=$office['image_path']?>" alt="Офис в <?=$office['business_center']?>" class="space-img">
                     <div class="space-info">
-                        <h3>БЦ "Легенда"</h3>
+                        <h3><?=$office['business_center']?></h3>
                         <div class="space-location">
                             <i class="fas fa-map-marker-alt"></i>
-                            Центр города, ул. Центральная, 15
+                            <?=$office['office_area'].' '.$office['office_addres']?>
                         </div>
                         <div class="space-features">
-                            <span><i class="fas fa-expand"></i> 120 м²</span>
-                            <span><i class="fas fa-users"></i> до 15 человек</span>
+                            <span><i class="fas fa-expand"></i><?=$office['office_square']?> м²</span>
+                            <span><i class="fas fa-users"></i> до <?=$office['office_capacity']?> человек</span>
                         </div>
-                        <div class="space-price">85 000 ₽/мес</div>
+                        <div class="space-price"><?=$office['office_rent']?> ₽/мес</div>
                     </div>
                 </div>
-                
-                <div class="space-card">
-                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Офис в БЦ Высота" class="space-img">
-                    <div class="space-info">
-                        <h3>БЦ "Высота"</h3>
-                        <div class="space-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Деловой район, пр. Бизнесовый, 42
-                        </div>
-                        <div class="space-features">
-                            <span><i class="fas fa-expand"></i> 65 м²</span>
-                            <span><i class="fas fa-users"></i> до 8 человек</span>
-                        </div>
-                        <div class="space-price">45 000 ₽/мес</div>
-                    </div>
-                </div>
-                
-                <div class="space-card">
-                    <img src="https://images.unsplash.com/photo-1560448204-603b3fc33ddc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Офис в БЦ Галактика" class="space-img">
-                    <div class="space-info">
-                        <h3>БЦ "Галактика"</h3>
-                        <div class="space-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Северный район, ул. Звездная, 7
-                        </div>
-                        <div class="space-features">
-                            <span><i class="fas fa-expand"></i> 250 м²</span>
-                            <span><i class="fas fa-users"></i> до 30 человек</span>
-                        </div>
-                        <div class="space-price">150 000 ₽/мес</div>
-                    </div>
-                </div>
+                <?}?>            
             </div>
-            <div style="text-align: center; margin-top: 3rem;">
-                <a href="#" class="btn">Смотреть все помещения</a>
-            </div>
-        </div>
     </section>
     
     <section class="contacts" id="contacts">
