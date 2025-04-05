@@ -241,8 +241,8 @@ include "header.php";
                             </select>
                         </div>
                         
-                        <input type="submit" class="btn">
-                            <i class="fas fa-calendar-check"></i> Забронировать
+                        <input type="submit" class="btn" value="Забронировать 📅">
+                            
                         </input>
                     </form>                   
                 </div>
