@@ -304,7 +304,7 @@ include "header.php";
         <div class="container">
             <h2 class="section-title">Популярные помещения</h2>
             <div class="spaces-grid">
-            <?php $stm=$pdo->query('SELECT * FROM `offices` ORDER BY RAND() LIMIT 3');
+            <?php $stm=$pdo->query('SELECT * FROM `offices` ORDER BY `offices`.`office_square` DESC LIMIT 3');
             $offices=$stm->fetchAll();?>
             <?php foreach ($offices as $office){?>
                 <div class="space-card">
