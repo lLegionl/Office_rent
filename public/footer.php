@@ -27,6 +27,6 @@
 </style>
 <footer>
         <div class="container">
-            <p>&copy; 2023 PrimeOffice. Все права защищены.</p>
+            <p>&copy; 2025 PrimeOffice. Все права защищены.</p>
         </div>
     </footer>

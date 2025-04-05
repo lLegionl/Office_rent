@@ -1,6 +1,8 @@
 <?php 
 session_start();
 include "header.php";
+include "db.php";
+$user_id = $_SESSION['user_id'];
 ?>
 
 <!DOCTYPE html>
@@ -230,7 +232,16 @@ include "header.php";
             font-weight: 500;
             margin-top: 0.5rem;
         }
-        
+        .rental_cancel {
+            background-color: #e05a2a;
+            color: #fff;
+            text-decoration: none;
+            padding: 0.2rem 1rem;
+        }
+        .status-wrapper {
+            display: flex;
+            justify-content: space-between;
+        }
         .status-active {
             background-color: #e3f7e8;
             color: #2e7d32;
@@ -340,47 +351,42 @@ include "header.php";
                     <h2 class="section-title">Мои аренды</h2>
                     
                     <ul class="rentals-list">
+                        <?php 
+                        $stm=$pdo->query("SELECT 
+                        rr.*, 
+                        o.image_path, 
+                        o.business_center, 
+                        o.office_area, 
+                        o.office_square, 
+                        o.office_rent
+                        FROM 
+                        rent_request rr
+                        JOIN 
+                        offices o ON rr.office_id = o.id
+                        WHERE 
+                        rr.user_id = $user_id
+                        ORDER BY 
+                        rr.start_date DESC");
+                        $rentals=$stm->fetchAll();                        
+                        ?>
+                        <?php foreach ($rentals as $rent) {?>
                         <li class="rental-item">
-                            <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="БЦ Легенда" class="rental-img">
+                            <img src=".\images\office\<?=$rent['image_path']?>" alt="Офис в <?=$rent['business_center']?>" class="rental-img">
                             <div class="rental-info">
-                                <h3>БЦ "Легенда"</h3>
+                                <h3><?='БЦ "'.$rent['business_center'].'"'?></h3>
                                 <div class="rental-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i> Центр города</span>
-                                    <span><i class="fas fa-expand"></i> 120 м²</span>
-                                    <span><i class="fas fa-calendar-alt"></i> 01.06.2023 - 31.05.2024</span>
-                                    <span><i class="fas fa-ruble-sign"></i> 85 000 ₽/мес</span>
+                                    <span><i class="fas fa-map-marker-alt"></i><?=$rent['office_area']?></span>
+                                    <span><i class="fas fa-expand"></i><?=$rent['office_square']?> м²</span>
+                                    <span><i class="fas fa-calendar-alt"></i><?=$rent['start_date'].' - '.$rent['end_date']?></span>
+                                    <span><i class="fas fa-ruble-sign"></i><?=$rent['office_rent']?> ₽/мес</span>
                                 </div>
-                                <span class="rental-status status-active"><i class="fas fa-check-circle"></i> Активна</span>
-                            </div>
-                        </li>
-                        
-                        <li class="rental-item">
-                            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="БЦ Высота" class="rental-img">
-                            <div class="rental-info">
-                                <h3>БЦ "Высота"</h3>
-                                <div class="rental-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i> Деловой район</span>
-                                    <span><i class="fas fa-expand"></i> 65 м²</span>
-                                    <span><i class="fas fa-calendar-alt"></i> 15.03.2022 - 14.03.2023</span>
-                                    <span><i class="fas fa-ruble-sign"></i> 45 000 ₽/мес</span>
+                                <div class="status-wrapper">
+                                    <span class="rental-status status-pending"><i class="fas fa-check-circle"></i><?=$rent['status']?></span>
+                                    <a href="canceled.php?rent=<?=$rent['id']?>" class="btn rental_cancel">Отменить</a>
                                 </div>
-                                <span class="rental-status status-completed"><i class="fas fa-history"></i> Завершена</span>
                             </div>
-                        </li>
-                        
-                        <li class="rental-item">
-                            <img src="https://images.unsplash.com/photo-1560448204-603b3fc33ddc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="БЦ Галактика" class="rental-img">
-                            <div class="rental-info">
-                                <h3>БЦ "Галактика"</h3>
-                                <div class="rental-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i> Северный район</span>
-                                    <span><i class="fas fa-expand"></i> 250 м²</span>
-                                    <span><i class="fas fa-calendar-alt"></i> 01.09.2023 - 31.08.2024</span>
-                                    <span><i class="fas fa-ruble-sign"></i> 150 000 ₽/мес</span>
-                                </div>
-                                <span class="rental-status status-pending"><i class="fas fa-clock"></i> Ожидает подтверждения</span>
-                            </div>
-                        </li>
+                        </li> 
+                        <?php }?>                   
                     </ul>
                 </div>
             </div>

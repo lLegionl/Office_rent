@@ -38,6 +38,8 @@ session_start();
             justify-content: space-between;
             align-items: center;
             padding: 1rem 0;
+
+            flex-direction: column;
         }
         
         .logo {
@@ -52,10 +54,12 @@ session_start();
             list-style: none;
             margin: 0;
             padding: 0;
+
         }
         
         nav ul li {
             margin-left: 2rem;
+            box-sizing: border-box;
         }
         nav li {
             display: flex;
@@ -73,22 +77,41 @@ session_start();
         nav ul li a:hover {
             color: var(--secondary-color);
         }
+        .btn_header {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
         
+        .btn_header:hover {
+            background-color: #e05a2a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
 
 </style>
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="#" class="logo">PrimeOffice</a>
+                <a href="index.php" class="logo">PrimeOffice</a>
                 <nav>
                     <ul>
                         <li><a href="index.php">Главная</a></li>
                         <li><a href="offices.php">Помещения</a></li>
                         <li><a href="index.php#contacts">Контакты</a></li>
                         <?php if (empty($_SESSION['login'])) {
-                            echo '<li><a href="login.php" class="btn">Войти</a></li>';
+                            echo '<li><a href="login.php" class="btn_header">Войти</a></li>';
                         } else {
-                            echo '<li><a href="account.php" class="btn">Личный кабинет</a></li>';
+                            echo '<li><a href="account.php" class="btn_header">Личный кабинет</a></li>';
                         }?>
                     </ul>
                 </nav>

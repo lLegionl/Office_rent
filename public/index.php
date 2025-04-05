@@ -194,6 +194,7 @@ include "header.php";
         .space-features span {
             display: flex;
             align-items: center;
+            gap: 5px;
         }
         
         .space-price {
@@ -246,29 +247,6 @@ include "header.php";
         }
         
         
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-            }
-            
-            nav ul {
-                margin-top: 1.5rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 0.5rem 1rem;
-            }
-            
-            .hero {
-                padding: 5rem 0;
-            }
-            
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>

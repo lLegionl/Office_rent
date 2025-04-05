@@ -192,26 +192,6 @@ include "header.php";
             padding: 2rem 0;
             font-size: 0.9rem;
         }
-        
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-            }
-            
-            nav ul {
-                margin-top: 1.5rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 0.5rem 1rem;
-            }
-            
-            .offices-grid {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
@@ -238,18 +218,18 @@ include "header.php";
                 <div class="office-card">
                     <img src=".\images\office\<?=$office['image_path']?>" alt="Офис в <?=$office['business_center']?>" class="office-img">
                     <div class="office-info">
-                        <h3><?=$office['business_center']?></h3>
+                        <h3><?='БЦ "'.$office['business_center'].'"'?></h3>
                         <div class="office-location">
                             <i class="fas fa-map-marker-alt"></i><?=$office['office_area'].' '.$office['office_addres']?>
                         </div>
                         <div class="office-features">
                             <div class="feature-item">
                                 <span class="feature-name">Площадь:</span>
-                                <span class="feature-value"><?$office['office_square']?> м²</span>
+                                <span class="feature-value"><?=$office['office_square']?> м²</span>
                             </div>
                             <div class="feature-item">
                                 <span class="feature-name">Вместимость:</span>
-                                <span class="feature-value">до <?$office['office_capacity']?> человек</span>
+                                <span class="feature-value">до <?=$office['office_capacity']?> человек</span>
                             </div>
                             <div class="feature-item">
                                 <span class="feature-name">Этаж:</span>
@@ -262,7 +242,7 @@ include "header.php";
                         </div>
                         <div class="office-price"><?=$office['office_rent']?> ₽/мес</div>
                         <div class="office-actions">
-                            <a href="#" class="btn btn-secondary">Подробнее</a>
+                            <a href="office_book.php?office=<?=$office['id']?>" class="btn btn-secondary">Подробнее</a>
                         </div>
                     </div>
                 </div>

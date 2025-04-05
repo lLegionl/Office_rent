@@ -221,6 +221,10 @@ include "header.php";
                         <input type="tel" name="phone" required>
                     </div>
                     
+                    <div class="form-group">
+                        <label for="register-phone">Пароль</label>
+                        <input type="password" name="password" required>
+                    </div>
                     <button type="submit" class="btn">Зарегистрироваться</button>
                 </form>
                 

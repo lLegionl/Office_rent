@@ -34,7 +34,7 @@ include "db.php";
                 $_POST['phone'],
                 $_POST['email']
             ]);
-            header('location:account.php?message=registration_ok');
+            header('location:login.php?message=registration_ok');
         }
         else header('location:login.php?message=registration_error');
             break;
