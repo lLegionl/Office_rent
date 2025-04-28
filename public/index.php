@@ -178,6 +178,7 @@ include "header.php";
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
+            gap: 10px;
         }
         
         .space-location svg {
