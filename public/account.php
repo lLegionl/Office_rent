@@ -299,8 +299,8 @@ $user_id = $_SESSION['user_id'];
         <div class="account-container">
             <div class="account-sidebar">
                 <div class="user-info">
-                    <h3>Иван Петров</h3>
-                    <p>ivan.petrov@example.com</p>
+                    <h3><?=$_SESSION['user_data']['name']?></h3>
+                    <p><?=$_SESSION['user_data']['email']?></p>
                 </div>
                 
                 <ul class="account-menu">
